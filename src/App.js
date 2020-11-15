@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Avatar from "react-avatar-edit";
+import { useState } from "react";
 
 function App() {
+  const [preview, setPreview] = useState(null);
+  function onClose() {
+    setPreview(null);
+  }
+  function onCrop(pv) {
+    setPreview(pv);
+  }
+  function onBeforeFileLoad(elem) {
+    if (elem.target.files[0].size > 2000000) {
+      alert("File is too big!");
+      elem.target.value = "";
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Avatar
+        width={600}
+        height={300}
+        onCrop={onCrop}
+        onClose={onClose}
+        onBeforeFileLoad={onBeforeFileLoad}
+        src={null}
+      />
+      <br />
+      {preview && (
+        <>
+          <img src={preview} alt="Preview" />
+          <a href={preview} download="avatar">
+            Download image
+          </a>
+        </>
+      )}
     </div>
   );
 }
-
 export default App;

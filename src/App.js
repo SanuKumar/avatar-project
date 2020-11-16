@@ -1,41 +1,34 @@
-import React from "react";
-import Avatar from "react-avatar-edit";
-import { useState } from "react";
+import React, { Suspense, lazy } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+  Redirect,
+} from "react-router-dom";
+import Login from "./components/Login/login";
+import { Loading } from "./components/Loading";
+const Avatar = lazy(() => import("./components/Avatar/avatar"));
 
-function App() {
-  const [preview, setPreview] = useState(null);
-  function onClose() {
-    setPreview(null);
-  }
-  function onCrop(pv) {
-    setPreview(pv);
-  }
-  function onBeforeFileLoad(elem) {
-    if (elem.target.files[0].size > 2000000) {
-      alert("File is too big!");
-      elem.target.value = "";
-    }
-  }
+const App = () => {
   return (
-    <div>
-      <Avatar
-        width={600}
-        height={300}
-        onCrop={onCrop}
-        onClose={onClose}
-        onBeforeFileLoad={onBeforeFileLoad}
-        src={null}
-      />
-      <br />
-      {preview && (
-        <>
-          <img src={preview} alt="Preview" />
-          <a href={preview} download="avatar">
-            Download image
-          </a>
-        </>
-      )}
-    </div>
+    <Suspense
+      fallback={
+        <div>
+          <Loading
+            style={{
+              width: "100%",
+              height: "100vh",
+              background: "#fff",
+            }}
+          />
+        </div>
+      }
+    >
+      <Login />
+      <Avatar />
+    </Suspense>
   );
-}
+};
+
 export default App;

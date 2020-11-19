@@ -36,6 +36,7 @@ const Todo = () => {
 
   const handleUpdate = () => {
     setnewtodo({});
+    console.log("Update");
   };
 
   return (

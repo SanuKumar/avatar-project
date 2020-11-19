@@ -37,6 +37,24 @@
   }
 }
 
-.link-space {
-  padding-left: 20px;
+.navbar_link--active {
+  font-weight: bold;
+  color: orange;
+  text-decoration: none;
 }
+
+.navbar_link--active:hover {
+  color: lightcoral;
+  text-decoration: none;
+}
+
+.navbar_link {
+  text-decoration: none;
+  color: white;
+}
+
+nav a:hover {
+  text-decoration: none;
+  color: white;
+}
+

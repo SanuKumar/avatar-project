@@ -14,6 +14,7 @@ import { Loading } from "./components/Loading";
 import Todo from "./components/Todo/todo";
 import Login from "./components/Login/login";
 import NotFound from "./components/notfound";
+import i18n from "i18next";
 const Avatar = lazy(() => import("./components/Avatar/avatar"));
 
 // https://reactrouter.com/web/api/NavLink
@@ -59,7 +60,8 @@ const Header = () => {
   );
 };
 
-const App = () => {
+const App = (props) => {
+  console.log("props", props);
   return (
     <Router>
       <Suspense

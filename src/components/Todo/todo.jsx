@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Button, Toast } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Toast, Dropdown } from "react-bootstrap";
 // import Toaster from "../toast";
+import { useTranslation } from "react-i18next";
 
 const Todo = () => {
+  const { t, i18n } = useTranslation();
   const [todolist, settodolist] = useState([]);
   const [newTodo, setnewtodo] = useState({ name: "", id: "" });
   const [show, setShow] = useState(false);
@@ -39,9 +41,35 @@ const Todo = () => {
     console.log("Update");
   };
 
+  console.log("local  ", localStorage);
+
+  useEffect(() => {
+    console.log("local  ", localStorage);
+  }, [localStorage]);
+
   return (
     <div>
       <h1>Hello From Todo</h1>
+      <div style={{ padding: "20px" }}>
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Select Language
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item
+              onSelect={() => localStorage.setItem("i18nextLng", "Hindi")}
+            >
+              Hindi
+            </Dropdown.Item>
+            <Dropdown.Item
+              onSelect={() => localStorage.setItem("i18nextLng", "Telugu")}
+            >
+              Telugu
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
 
       {todolist.map((t) => {
         return (
@@ -71,7 +99,7 @@ const Todo = () => {
           />
         </div>
         <Button type="submit" onClick={(e) => handleAddToDo(e)}>
-          Add More
+          {t("Add More")}
         </Button>
       </form>
 

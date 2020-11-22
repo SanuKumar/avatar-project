@@ -41,8 +41,6 @@ const Todo = () => {
     console.log("Update");
   };
 
-  console.log("local  ", localStorage);
-
   useEffect(() => {
     console.log("local  ", localStorage);
   }, [localStorage]);
@@ -89,7 +87,7 @@ const Todo = () => {
 
       <form>
         <div>
-          <label style={{ paddingRight: "20px" }}>New Todo's</label>
+          <label style={{ paddingRight: "20px" }}>{t("New Todo's")}</label>
           <input
             name="name"
             type="text"

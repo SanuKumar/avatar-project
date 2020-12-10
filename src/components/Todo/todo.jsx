@@ -1,21 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Toast, Dropdown } from "react-bootstrap";
-// import Toaster from "../toast";
 import { useTranslation } from "react-i18next";
 
 const Todo = () => {
-  const { t, i18n } = useTranslation();
+  const {
+    t,
+    // i18n
+  } = useTranslation();
   const [todolist, settodolist] = useState([]);
   const [newTodo, setnewtodo] = useState({ name: "", id: "" });
   const [show, setShow] = useState(false);
   const toggleShowA = () => setShow(!show);
+  const [upd, setupd] = useState(false);
 
   const handleAddToDo = (e) => {
     e.preventDefault();
+    console.log("newTodo", newTodo);
+    const newVal = todolist.concat(newTodo);
     if (newTodo.name) {
-      const newVal = todolist.concat(newTodo);
-      settodolist(newVal);
-      setnewtodo({ name: "", id: "" });
+      if (upd) {
+        console.log("to update");
+
+        // setfielddata({
+        //   ...fielddata,
+        //   setting_attributes: {
+        //     ...fielddata.setting_attributes,
+        //     sections: newArr,
+        //   },
+        // });
+        settodolist(newVal);
+      } else {
+        settodolist(newVal);
+        setnewtodo({ name: "", id: "" });
+        setupd(false);
+      }
     } else {
       console.log("error");
       setShow(true);
@@ -34,21 +52,36 @@ const Todo = () => {
     let del = todolist.filter((list) => list.id !== id);
     settodolist(del);
     setnewtodo({ name: "", id: "" });
+    setupd(false);
   };
 
-  const handleUpdate = () => {
-    setnewtodo({});
-    console.log("Update");
+  const handleUpdate = (id) => {
+    setupd(true);
+    todolist.map((t) => {
+      if (t.id === id) {
+        let del = todolist.filter((list) => list.id !== id);
+        setnewtodo({
+          name: t.name,
+          id: t.id,
+        });
+        console.log("del", del);
+      } else {
+        console.log("Update ==> ", id);
+        return t;
+      }
+      return null;
+    });
   };
 
-  useEffect(() => {
-    console.log("local  ", localStorage);
-  }, [localStorage]);
+  console.log("todolist ==>", todolist);
+
+  console.log("local  ", localStorage.i18nextLng);
 
   return (
     <div>
       <h1>Hello From Todo</h1>
-      <div style={{ padding: "20px" }}>
+
+      <div style={{ padding: "20px", float: "right" }}>
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
             Select Language
@@ -94,6 +127,7 @@ const Todo = () => {
             value={newTodo.name}
             placeholder="Enter New Todo"
             onChange={(e) => handleInput(e)}
+            refs="name"
           />
         </div>
         <Button type="submit" onClick={(e) => handleAddToDo(e)}>

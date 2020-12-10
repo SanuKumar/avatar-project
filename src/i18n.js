@@ -5,7 +5,7 @@ import react, { useState, useEffect } from "react";
 import { initReactI18next } from "react-i18next";
 
 // const fallbackLng = ["en"];
-const fallbackLng = ["Hindi"];
+const fallbackLng = ["English"];
 // const availableLanguages = ["en", "ko", "ja", "tchi", "schi"];
 const availableLanguages = ["English", "Hindi", "Telugu"];
 const options = {

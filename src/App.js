@@ -79,7 +79,7 @@ const App = (props) => {
       >
         <Header />
         <Switch>
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Login} />
           <Route exact path="/avatar" component={Avatar} />
           <Route exact path="/todo" component={Todo} />
           <Route component={NotFound} />

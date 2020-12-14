@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Toast, Dropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
-const Todo = () => {
+const Todo = (props) => {
   const {
     t,
     // i18n
@@ -73,7 +73,7 @@ const Todo = () => {
     });
   };
 
-  console.log("todolist ==>", todolist);
+  console.log("props ==> ", props);
 
   console.log("local  ", localStorage.i18nextLng);
 

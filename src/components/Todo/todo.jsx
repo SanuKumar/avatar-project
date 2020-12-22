@@ -3,10 +3,7 @@ import { Button, Toast, Dropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 const Todo = (props) => {
-  const {
-    t,
-    // i18n
-  } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [todolist, settodolist] = useState([]);
   const [newTodo, setnewtodo] = useState({ name: "", id: "" });
   const [show, setShow] = useState(false);
@@ -73,9 +70,11 @@ const Todo = (props) => {
     });
   };
 
-  console.log("props ==> ", props);
-
   console.log("local  ", localStorage.i18nextLng);
+
+  const changeLanguage = (event) => {
+    i18n.changeLanguage(event.target.value);
+  };
 
   return (
     <div>
@@ -89,17 +88,27 @@ const Todo = (props) => {
 
           <Dropdown.Menu>
             <Dropdown.Item
-              onSelect={() => localStorage.setItem("i18nextLng", "Hindi")}
+              onSelect={() =>
+                // localStorage.setItem("i18nextLng", "Hindi")
+                i18n.changeLanguage("Hindi")
+              }
             >
               Hindi
             </Dropdown.Item>
             <Dropdown.Item
-              onSelect={() => localStorage.setItem("i18nextLng", "Telugu")}
+              onSelect={() =>
+                // localStorage.setItem("i18nextLng", "Telugu")
+                18n.changeLanguage("Telugu")
+              }
             >
               Telugu
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+        <div onChange={changeLanguage}>
+          <input type="radio" value="hi" name="language" /> English
+          <input type="radio" value="en" name="language" /> Traditional Chinese
+        </div>
       </div>
 
       {todolist.map((t) => {
